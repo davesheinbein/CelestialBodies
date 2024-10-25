@@ -32,6 +32,8 @@ This project is part of the
     workflow.
 10. [Entity-Relationship Diagram (ERD)](#9-entity-relationship-diagram-erd):
     Visualize table relationships.
+11. [Update Appointments, Customers, and Services](#10-update-appointments-customers-and-services):
+    Instructions for updating existing records.
 
 ### Database Setup
 
@@ -154,59 +156,43 @@ INSERT INTO planet VALUES
 (8,  6,  8, 'planet8', 500, 750, 1500.75, 'solid', true, true),
 (9,  6,  9, 'planet9', 500, 750, 1500.75, 'solid', true, true),
 (10, 6, 10, 'planet10', 500, 750, 1500.75, 'solid', true, true),
-(11, 6, 11, 'planet11', 500, 750, 1500.75, 'solid', true, true),
+(11, 6
+
+, 11, 'planet11', 500, 750, 1500.75, 'solid', true, true),
 (12, 6, 12, 'planet12', 500, 750, 1500.75, 'solid', true, true);
 
 -- Insert data into the 'moon' table
 INSERT INTO moon VALUES
-(1,   1, 'moon1', 500, 750, 1500.75, 'solid', true, true),
-(2,   2, 'moon2', 500, 750, 1500.75, 'solid', true, true),
-(3,   3, 'moon3', 500, 750, 1500.75, 'solid', true, true),
-(4,   4, 'moon4', 500, 750, 1500.75, 'solid', true, true),
-(5,   5, 'moon5', 500, 750, 1500.75, 'solid', true, true),
-(6,   6, 'moon6', 500, 750, 1500.75, 'solid', true, true),
-(7,   7, 'moon7', 500, 750, 1500.75, 'solid', true, true),
-(8,   8, 'moon8', 500, 750, 1500.75, 'solid', true, true),
-(9,   9, 'moon9', 500, 750, 1500.75, 'solid', true, true),
-(10, 10, 'moon10', 500, 750, 1500.75, 'solid', true, true),
-(11, 11, 'moon11', 500, 750, 1500.75, 'solid', true, true),
-(12, 11, 'moon12', 500, 750, 1500.75, 'solid', true, true),
-(13, 11, 'moon13',
-
-500, 750, 1500.75, 'solid', true, true),
-(14, 11, 'moon14', 500, 750, 1500.75, 'solid', true, true),
-(15, 11, 'moon15', 500, 750, 1500.75, 'solid', true, true),
-(16, 11, 'moon16', 500, 750, 1500.75, 'solid', true, true),
-(17, 11, 'moon17', 500, 750, 1500.75, 'solid', true, true),
-(18, 11, 'moon18', 500, 750, 1500.75, 'solid', true, true),
-(19, 11, 'moon19', 500, 750, 1500.75, 'solid', true, true),
-(20, 11, 'moon20', 500, 750, 1500.75, 'solid', true, true);
+(1, 1, 'moon1', 500, 750, 1500.75, 'solid', true, true),
+(2, 2, 'moon2', 500, 750, 1500.75, 'solid', true, true),
+(3, 3, 'moon3', 500, 750, 1500.75, 'solid', true, true),
+(4, 4, 'moon4', 500, 750, 1500.75, 'solid', true, true),
+(5, 5, 'moon5', 500, 750, 1500.75, 'solid', true, true),
+(6, 6, 'moon6', 500, 750, 1500.75, 'solid', true, true);
 
 -- Insert data into the 'more_info' table
 INSERT INTO more_info VALUES
-(1, 1, 'info1', 'lorem impsum'),
-(2, 2, 'info2', 'lorem impsum'),
-(3, 3, 'info3', 'lorem impsum'),
-(4, 4, 'info4', 'lorem impsum'),
-(5, 5, 'info5', 'lorem impsum');
+(1, 1, 'star_name1', 'some description'),
+(2, 2, 'star_name2', 'some description'),
+(3, 3, 'star_name3', 'some description');
 ```
 
 ### 5. **Verify Inserted Data**
 
 ```sql
--- Select all rows from 'galaxy' table
+-- Verify the data in the 'galaxy' table
 SELECT * FROM galaxy;
 
--- Select all rows from 'star' table
+-- Verify the data in the 'star' table
 SELECT * FROM star;
 
--- Select all rows from 'planet' table
+-- Verify the data in the 'planet' table
 SELECT * FROM planet;
 
--- Select all rows from 'moon' table
+-- Verify the data in the 'moon' table
 SELECT * FROM moon;
 
--- Select all rows from 'more_info' table
+-- Verify the data in the 'more_info' table
 SELECT * FROM more_info;
 ```
 
@@ -222,191 +208,76 @@ SELECT * FROM more_info;
   - It establishes a relationship between the two tables.
 
 ```sql
--- Add primary keys
-ALTER TABLE galaxy    ADD PRIMARY KEY (galaxy_id);
-ALTER TABLE star      ADD PRIMARY KEY (star_id);
-ALTER TABLE planet    ADD PRIMARY KEY (planet_id);
-ALTER TABLE moon      ADD PRIMARY KEY (moon_id);
-ALTER TABLE more_info ADD PRIMARY KEY (more_info_id);
+-- Add primary key to 'galaxy' table
+ALTER TABLE galaxy ADD CONSTRAINT galaxy_pkey PRIMARY KEY (galaxy_id);
 
--- Add foreign key constraints
-ALTER TABLE galaxy ADD FOREIGN KEY (star_id)   REFERENCES star   (star_id);
-ALTER TABLE star   ADD FOREIGN KEY (galaxy_id) REFERENCES galaxy (galaxy_id);
-ALTER TABLE star   ADD FOREIGN KEY (planet_id) REFERENCES planet (planet_id);
-ALTER TABLE planet ADD FOREIGN KEY (star_id)   REFERENCES star   (star_id);
-ALTER TABLE planet ADD FOREIGN KEY (moon_id)   REFERENCES moon   (moon_id);
-ALTER TABLE moon   ADD FOREIGN KEY (planet_id) REFERENCES planet (planet_id);
+-- Add foreign key to 'star' table referencing 'galaxy' table
+ALTER TABLE star ADD CONSTRAINT star_galaxy_id_fkey FOREIGN KEY (galaxy_id) REFERENCES galaxy (galaxy_id);
+
+-- Add primary key to 'star' table
+ALTER TABLE star ADD CONSTRAINT star_pkey PRIMARY KEY (star_id);
+
+-- Add foreign key to 'planet' table referencing 'star' table
+ALTER TABLE planet ADD CONSTRAINT planet_star_id_fkey FOREIGN KEY (star_id) REFERENCES star (star_id);
+
+-- Add primary key to 'planet' table
+ALTER TABLE planet ADD CONSTRAINT planet_pkey PRIMARY KEY (planet_id);
+
+-- Add foreign key to 'moon' table referencing 'planet' table
+ALTER TABLE moon ADD CONSTRAINT moon_planet_id_fkey FOREIGN KEY (planet_id) REFERENCES planet (planet_id);
+
+-- Add primary key to 'moon' table
+ALTER TABLE moon ADD CONSTRAINT moon_pkey PRIMARY KEY (moon_id);
+
+-- Add primary key to 'more_info' table
+ALTER TABLE more_info ADD CONSTRAINT more_info_pkey PRIMARY KEY (more_info_id);
 ```
 
 ### 7. **Dump the Database into a SQL File**
 
 ```bash
-# Export the 'universe' database structure and data to a file called universe.sql
-pg_dump -cC --inserts -U freecodecamp universe > universe.sql
+pg_dump --username=freecodecamp --no-owner --file=universe_dump.sql universe
 ```
 
-### 8. Flowchart
+### 8. **Flowchart**
 
-```
-+---------------------------+
-|      Start Process        |
-+---------------------------+
-             |
-             v
-+---------------------------+
-| Connect to PostgreSQL     |
-| psql --username=...      |
-+---------------------------+
-             |
-             v
-+---------------------------+
-| Create Database 'universe'|
-| CREATE DATABASE universe;  |
-+---------------------------+
-             |
-             v
-+---------------------------+
-| Create Tables             |
-| CREATE TABLE galaxy (...); |
-| CREATE TABLE star (...);   |
-| CREATE TABLE planet (...); |
-| CREATE TABLE moon (...);   |
-| CREATE TABLE more_info (...); |
-+---------------------------+
-             |
-             v
-+---------------------------+
-| Verify Table Creation     |
-| \dt                       |
-+---------------------------+
-             |
-             v
-+---------------------------+
-| Insert Data               |
-| INSERT INTO galaxy VALUES; |
-| INSERT INTO star VALUES;   |
-| INSERT INTO planet VALUES; |
-| INSERT INTO moon VALUES;   |
-| INSERT INTO more_info VALUES; |
-+---------------------------+
-             |
-             v
-+---------------------------+
-| Verify Inserted Data      |
-| SELECT * FROM galaxy;     |
-| ...                       |
-+---------------------------+
-             |
-             v
-+---------------------------+
-| Add Constraints           |
-| ALTER TABLE ...           |
-+---------------------------+
-             |
-             v
-+---------------------------+
-| Dump Database to SQL File |
-| pg_dump -cC ...          |
-+---------------------------+
-             |
-             v
-+---------------------------+
-|      End Process          |
-+---------------------------+
+![Flowchart](./images/flowchart.png)
+
+### 9. **Entity-Relationship Diagram (ERD)**
+
+![ERD](./images/erd.png)
+
+### 10. **Update Appointments, Customers, and Services**
+
+To update existing records in the database, use the `UPDATE`
+statement.
+
+#### Example of Updating a Record
+
+To update the name of a star, for instance, you could use:
+
+```sql
+UPDATE star
+SET name = 'new_star_name'
+WHERE star_id = 1;  -- Assuming the star_id is 1
 ```
 
-### 9. Entity-Relationship Diagram (ERD)
+#### Updating Customers
 
-The following diagram illustrates the relationships between
-the tables in the **universe** database, including galaxies,
-stars, planets, moons, and additional information.
+Similarly, to update a customer's information:
 
-```
-+-------------------+
-|      Galaxy       |
-+-------------------+
-| galaxy_id (PK)   |
-| star_id (FK)     |
-| name              |
-| area              |
-| volume            |
-| age               |
-| material          |
-| has_life          |
-| has_water         |
-+-------------------+
-         |
-         | 1
-         |
-         | M
-+-------------------+
-|       Star        |
-+-------------------+
-| star_id (PK)     |
-| galaxy_id (FK)   |
-| planet_id (FK)   |
-| name              |
-| area              |
-| volume            |
-| age               |
-| material          |
-| has_life          |
-| has_water         |
-+-------------------+
-         |
-         | 1
-         |
-         | M
-+-------------------+
-|      Planet       |
-+-------------------+
-| planet_id (PK)   |
-| star_id (FK)     |
-| moon_id (FK)     |
-| name              |
-| area              |
-| volume            |
-| age               |
-| material          |
-| has_life          |
-| has_water         |
-+-------------------+
-         |
-         | 1
-         |
-         | M
-+-------------------+
-|       Moon        |
-+-------------------+
-| moon_id (PK)     |
-| planet_id (FK)   |
-| name              |
-| area              |
-| volume            |
-| age               |
-| material          |
-| has_life          |
-| has_water         |
-+-------------------+
-
-+-------------------+
-|     More_Info     |
-+-------------------+
-| more_info_id (PK)|
-| object_id         |
-| name              |
-| description       |
-+-------------------+
+```sql
+UPDATE customers
+SET name = 'new_customer_name'
+WHERE customer_id = 1;  -- Assuming the customer_id is 1
 ```
 
-### Explanation of ERD Components:
+#### Updating Services
 
-- **Galaxy**: Contains properties of a galaxy, including
-  links to stars.
-- **Star**: Holds star attributes, including links to
-  galaxies and planets.
-- **Planet**: Describes planets and links to stars and
-  moons.
-- **Moon**: Contains properties of moons linked to planets.
-- **More_Info**: Provides additional details for various
-  celestial objects, referencing their IDs.
+To update a service's details:
+
+```sql
+UPDATE services
+SET description = 'new_service_description'
+WHERE service_id = 1;  -- Assuming the service_id is 1
+```
