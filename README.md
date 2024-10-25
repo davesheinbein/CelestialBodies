@@ -1,103 +1,42 @@
-<<<<<<< HEAD
 # Celestial Bodies Database
 
-This project is part of the
-[FreeCodeCamp Relational Database Certification](https://www.freecodecamp.org/learn/relational-database/build-a-celestial-bodies-database-project/build-a-celestial-bodies-database).
-
-## Project Overview
-
-In this project, you will create a relational database to
-store information about celestial bodies, including
-galaxies, stars, planets, and moons. The database will be
-managed using PostgreSQL, and you'll implement tables,
+In this project, I created a relational database to store
+information about celestial bodies, including galaxies,
+stars, planets, and moons. The database will be managed
+using PostgreSQL, and you'll implement tables,
 relationships, and queries to meet the user stories.
 
-## Instructions
+This project is part of the
+[FreeCodeCamp Relational Database Certification](https://www.freecodecamp.org/learn/relational-database).
+[Build a celestial bodies database project](https://www.freecodecamp.org/learn/relational-database/build-a-celestial-bodies-database-project/build-a-celestial-bodies-database).
 
-### Step 1: Complete the Project
+## Table of Contents
 
-1. Open the provided virtual machine environment.
-2. Implement all the necessary user stories to pass the
-   FreeCodeCamp tests.
-3. Save a dump of your database in a `universe.sql` file.
+1.  [Database Setup](#step-2-database-setup): Steps to set
+    up the database.
+2.  [Create Database and Connect](#1-create-database-and-connect-to-it):
+    Set up and connect to the database.
+3.  [Create Tables](#2-create-tables): Define tables for
+    `appointments`, `customers`, and `services`.
+4.  [Verify Table Creation](#3-verify-table-creation):
+    Ensure tables were created successfully.
+5.  [Insert Data](#4-insert-data): Add initial data to the
+    tables.
+6.  [Verify Inserted Data](#5-verify-inserted-data): Confirm
+    that data was inserted correctly.
+7.  [Add Primary and Foreign Key Constraints](#6-add-primary-and-foreign-key-constraints):
+    Ensure data integrity with relationships.
+8.  [Dump the Database into a SQL File](#7-dump-the-database-into-a-sql-file):
+    Backup database with pg_dump.
+9.  [Flowchart](#8-flowchart): Overview of setup and
+    workflow.
+10. [Entity-Relationship Diagram (ERD)](#9-entity-relationship-diagram-erd):
+    Visualize table relationships.
 
-### Step 2: Database Setup
-
-#### 1. **Create the Database**
-
-```bash
-psql --username=freecodecamp --dbname=postgres
-CREATE DATABASE universe;
-\c universe
-```
-
-#### 2. **Create Tables**
-
-You will create tables for galaxies, stars, planets, moons,
-and more information.
-
-```sql
-CREATE TABLE galaxy (...);
-CREATE TABLE star (...);
-CREATE TABLE planet (...);
-CREATE TABLE moon (...);
-CREATE TABLE more_info (...);
-```
-
-#### 3. **Verify Table Creation**
-
-Ensure your tables are created successfully.
-
-```sql
-\dt
-```
-
-#### 4. **Insert Sample Data**
-
-Populate the database with sample records.
-
-```sql
-INSERT INTO galaxy VALUES (...);
-INSERT INTO star VALUES (...);
-INSERT INTO planet VALUES (...);
-INSERT INTO moon VALUES (...);
-INSERT INTO more_info VALUES (...);
-```
-
-#### 5. **Verify Data**
-
-Use queries to check the inserted data.
-
-```sql
-SELECT * FROM galaxy;
-SELECT * FROM star;
-SELECT * FROM planet;
-SELECT * FROM moon;
-SELECT * FROM more_info;
-```
-
-#### 6. **Add Primary and Foreign Keys**
-
-Add primary keys and establish relationships between tables.
-
-```sql
-ALTER TABLE galaxy ADD PRIMARY KEY (...);
-ALTER TABLE star ADD FOREIGN KEY (...);
-...
-```
-
-### Step 3: Export the Database
-
-After completing the project, export the database into a SQL
-file.
-
-```bash
-pg_dump -cC --inserts -U freecodecamp universe > universe.sql
-```
-=======
-Complete list of terminal commands with comments explaining each step:
+### Database Setup
 
 ### 1. **Create Database and Connect to It**
+
 ```bash
 # Connect to PostgreSQL with the 'freecodecamp' username, using the 'postgres' database
 psql --username=freecodecamp --dbname=postgres
@@ -110,6 +49,7 @@ CREATE DATABASE universe;
 ```
 
 ### 2. **Create Tables**
+
 ```sql
 -- Create 'galaxy' table with various properties for a galaxy
 CREATE TABLE galaxy (
@@ -175,15 +115,17 @@ CREATE TABLE more_info (
 ```
 
 ### 3. **Verify Table Creation**
+
 ```sql
 -- Show a list of all tables in the current database (universe)
 \dt
 ```
 
 ### 4. **Insert Data**
+
 ```sql
 -- Insert data into the 'galaxy' table
-INSERT INTO galaxy VALUES 
+INSERT INTO galaxy VALUES
 (1, 1, 'galaxy1', 500, 750, 1500.75, 'solid', true, true),
 (2, 2, 'galaxy2', 500, 750, 1500.75, 'solid', true, true),
 (3, 3, 'galaxy3', 500, 750, 1500.75, 'solid', true, true),
@@ -216,7 +158,7 @@ INSERT INTO planet VALUES
 (12, 6, 12, 'planet12', 500, 750, 1500.75, 'solid', true, true);
 
 -- Insert data into the 'moon' table
-INSERT INTO moon VALUES 
+INSERT INTO moon VALUES
 (1,   1, 'moon1', 500, 750, 1500.75, 'solid', true, true),
 (2,   2, 'moon2', 500, 750, 1500.75, 'solid', true, true),
 (3,   3, 'moon3', 500, 750, 1500.75, 'solid', true, true),
@@ -229,7 +171,7 @@ INSERT INTO moon VALUES
 (10, 10, 'moon10', 500, 750, 1500.75, 'solid', true, true),
 (11, 11, 'moon11', 500, 750, 1500.75, 'solid', true, true),
 (12, 11, 'moon12', 500, 750, 1500.75, 'solid', true, true),
-(13, 11, 'moon13', 
+(13, 11, 'moon13',
 
 500, 750, 1500.75, 'solid', true, true),
 (14, 11, 'moon14', 500, 750, 1500.75, 'solid', true, true),
@@ -250,6 +192,7 @@ INSERT INTO more_info VALUES
 ```
 
 ### 5. **Verify Inserted Data**
+
 ```sql
 -- Select all rows from 'galaxy' table
 SELECT * FROM galaxy;
@@ -268,6 +211,7 @@ SELECT * FROM more_info;
 ```
 
 ### 6. **Add Primary and Foreign Key Constraints**
+
 ```sql
 -- Add primary keys
 ALTER TABLE galaxy    ADD PRIMARY KEY (galaxy_id);
@@ -286,6 +230,7 @@ ALTER TABLE moon   ADD FOREIGN KEY (planet_id) REFERENCES planet (planet_id);
 ```
 
 ### 7. **Dump the Database into a SQL File**
+
 ```bash
 # Export the 'universe' database structure and data to a file called universe.sql
 pg_dump -cC --inserts -U freecodecamp universe > universe.sql
@@ -363,7 +308,9 @@ pg_dump -cC --inserts -U freecodecamp universe > universe.sql
 
 ### 9. Entity-Relationship Diagram (ERD)
 
-The following diagram illustrates the relationships between the tables in the **universe** database, including galaxies, stars, planets, moons, and additional information.
+The following diagram illustrates the relationships between
+the tables in the **universe** database, including galaxies,
+stars, planets, moons, and additional information.
 
 ```
 +-------------------+
@@ -444,10 +391,13 @@ The following diagram illustrates the relationships between the tables in the **
 ```
 
 ### Explanation of ERD Components:
-- **Galaxy**: Contains properties of a galaxy, including links to stars.
-- **Star**: Holds star attributes, including links to galaxies and planets.
-- **Planet**: Describes planets and links to stars and moons.
-- **Moon**: Contains properties of moons linked to planets.
-- **More_Info**: Provides additional details for various celestial objects, referencing their IDs.
 
->>>>>>> 4785d7d (update)
+- **Galaxy**: Contains properties of a galaxy, including
+  links to stars.
+- **Star**: Holds star attributes, including links to
+  galaxies and planets.
+- **Planet**: Describes planets and links to stars and
+  moons.
+- **Moon**: Contains properties of moons linked to planets.
+- **More_Info**: Provides additional details for various
+  celestial objects, referencing their IDs.
