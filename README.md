@@ -212,6 +212,15 @@ SELECT * FROM more_info;
 
 ### 6. **Add Primary and Foreign Key Constraints**
 
+- A primary key is a unique identifier for a record in a
+  table.
+  - It ensures that no two rows have the same value for the
+    primary key column(s).
+- A foreign key is a field (or collection of fields) in one
+  table that uniquely identifies a row of another table or
+  the same table.
+  - It establishes a relationship between the two tables.
+
 ```sql
 -- Add primary keys
 ALTER TABLE galaxy    ADD PRIMARY KEY (galaxy_id);

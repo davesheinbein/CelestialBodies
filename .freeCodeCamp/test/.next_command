@@ -392,3 +392,6 @@ trap '__vsc_preexec_all "$_"' DEBUG
 __vsc_original_prompt_command=${PROMPT_COMMAND:-}
 git add README.MD
 git add .
+git commit -m "update readme"
+git push origin
+git add .
